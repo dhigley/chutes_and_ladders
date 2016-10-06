@@ -8,7 +8,6 @@
  * Due 10/19/2016
  *
  */
-
 #include "chutes_ladders.h"
 
 int main(void) {
@@ -25,3 +24,7 @@ int main(void) {
   fclose(fp);     /* close the file */
 }
 
+/* move: roll the dice and move the player pointer to its new position on the board */
+int move(char *p1, char *p2, char *board, int player_id) {
+
+}
