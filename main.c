@@ -29,12 +29,6 @@ int main(void) {
     output(fp, board, p1, p2);
   }
 
-  // TEST
-  /* printf("%c\n", *p1); */
-  /* printf("p1 has moved %ld spaces\n", p1 - board); */
-  /* printf("%c\n", *p2); */
-  /* printf("p2 has moved %ld spaces\n", p2 - board); */
-
   fclose(fp);     /* close the file */
 }
 
@@ -42,26 +36,39 @@ int main(void) {
 char *move(char *player, char *viewer, char *board, int player_id) {
   // random die roll
   int roll;
-  char *destination, instruction;
+  char *destination, instruction; /* where to move the pointer and what the instruction is */
 
   roll = rand() % 6 + 1;        /* dice roll */
   destination = player + roll;  /* current player's new destination address */
 
-  if (destination < board + 100) { /* if the destination is still on the board */
-    instruction = *destination;
-    if (instruction == 'B')       /* player found a 'B' */
+  // print results of the dice roll
+  printf("%s rolled a %d ", (player_id == 1) ? "You:" : "Me: ", roll);
+
+  if (destination < board + 100) {  /* if the destination is still on the board */
+    instruction = *destination;     /* read the value at the destination go get the instruction */
+    if (instruction == 'B') {       /* player found a 'B' */
+      printf(" moving backward to haven ... ");
       /* findHaven(); */
-      printf("Player %d found a 'B'\n", player_id);
-    else if (instruction == 'F')  /* player found an 'F' */
+    }
+    else if (instruction == 'F') {  /* player found an 'F' */
+      printf(" moving forward to haven ... ");
       /* findHaven(); */
-      printf("Player %d found an 'F'\n", player_id);
-    else if (instruction < 110)   /* player found a chute */
-      /* chuteLadder */
-      printf("Player %d found an chute\n", player_id);
-    else if (instruction > 110)   /* player found a ladder */
-      /* chuteLadder */
-      printf("Player %d found an ladder\n", player_id);
+    }
+    else if (instruction >= 97 && instruction < 110) {   /* player found a chute */
+      printf(" landed an chute ... moving %d ...", instruction - 110);
+      /* chuteLadder() */
+    }
+    else if (instruction > 110 && instruction <= 122) {   /* player found a ladder */
+      printf(" landed an ladder ... moving %d ...", instruction - 110);
+      /* chuteLadder() */
+    }
   }
 
+  if (destination == viewer) {
+    destination -= 1;
+    printf(" collision! ... moving back one square ...");
+  }
+
+  printf(" now at %ld\n", destination - board);
   return destination;
 }
