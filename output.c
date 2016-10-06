@@ -20,11 +20,9 @@ void output(FILE *fp, char *board, char *p1, char *p2) {
   while (*current != '\0') {
     if (current == p1) {
       putc('1', fp);
-      printf("p1 found\n");
     }
     else if (current == p2) {
       putc('2', fp);
-      printf("p2 found\n");
     }
     else
       putc(*current, fp);
