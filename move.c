@@ -25,25 +25,15 @@ char *move(char *player, char *viewer, char *board, int player_id) {
   if (destination < board + 100) {  // if the destination is still on the board
     instruction = *destination;     // read the value at the destination to get the instruction
 
-    if (destination == viewer) {
+    if (destination == viewer) {    // check for player collision after move
       destination -= 1;
       printf(" collision! ... moving back one square ...");
     }
-    else if (instruction == 'B') {       // player found a 'B'
+    else if (instruction == 'B' || instruction == 'F') { // check tile for 'F' or 'B'
       destination = findHaven(board, destination, instruction);
-      printf(" moving backward to haven ... ");
     }
-    else if (instruction == 'F') {  // player found an 'F'
-      destination = findHaven(board, destination, instruction);
-      printf(" moving forward to haven ... ");
-    }
-    else if (instruction >= 97 && instruction < 110) {   // player found a chute
-      /* chuteLadder() */
-      printf(" landed an chute ... moving %d ...", instruction - 110);
-    }
-    else if (instruction > 110 && instruction <= 122) {   // player found a ladder
-      /* chuteLadder() */
-      printf(" landed an ladder ... moving %d ...", instruction - 110);
+    else if (instruction >= 97 && instruction <= 122) { // check if tile is chute or ladder
+      /* destination = chuteLadder(board, destination, instruction); */
     }
   }
 
@@ -51,7 +41,15 @@ char *move(char *player, char *viewer, char *board, int player_id) {
   return destination;
 }
 
-/* findHaven: determines the nearest haven to move to depending on if the player landed on a 'B' or an 'F' */
+/* chuteLadder: moves a player forward or backward a set amount of tiles depending on the value of the tile they land on */
+char *chuteLadder(char *board, char *current_pointer, char instruction) {
+  char *updated_pointer;         // the adjusted dest based on the instruction
+  updated_pointer = current_pointer; // used the original dest as the starting point
+
+  return updated_pointer;
+}
+
+/* findHaven: moves a player forward or backward to the nearest haven depending on if they landed on a 'F' or a 'B' */
 char *findHaven(char *board, char *current_pointer, char instruction) {
   char *updated_pointer;         // the adjusted dest based on the instruction
   updated_pointer = current_pointer; // used the original dest as the starting point
@@ -68,6 +66,8 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
     // replace the current 'H' with a '_' so it cannot be reused
     if (*updated_pointer == 'H')
       *updated_pointer = '_';
+
+    printf(" moving forward to haven ...");
   }
   else if (instruction == 'B') {
     // move the updated pointer back to the previous available haven
@@ -77,6 +77,8 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
     // replace the current 'H' with a '_' so it cannot be reused
     if (*updated_pointer == 'H')
       *updated_pointer = '_';
+
+    printf(" moving backward to haven ...");
   }
 
   return updated_pointer;
