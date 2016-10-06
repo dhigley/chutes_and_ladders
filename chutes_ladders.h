@@ -12,7 +12,8 @@
 // Library Include Statements
 #include <stdio.h>    /* for file utils and putc */
 #include <stdlib.h>   /* for random number generation */
+#include <time.h>     /* for seeding the random number generator */
 
 // Function Prototypes
 void output(FILE *, char *, char *, char *);
-int move(char *, char *, char *, int);
+char *move(char *, char *, char *, int);
