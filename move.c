@@ -25,20 +25,20 @@ char *move(char *player, char *viewer, char *board, int player_id) {
   if (destination < board + 100) {  /* if the destination is still on the board */
     instruction = *destination;     /* read the value at the destination go get the instruction */
     if (instruction == 'B') {       /* player found a 'B' */
+      findHaven(board, destination, instruction);
       printf(" moving backward to haven ... ");
-      /* findHaven(); */
     }
     else if (instruction == 'F') {  /* player found an 'F' */
+      findHaven(board, destination, instruction);
       printf(" moving forward to haven ... ");
-      /* findHaven(); */
     }
     else if (instruction >= 97 && instruction < 110) {   /* player found a chute */
-      printf(" landed an chute ... moving %d ...", instruction - 110);
       /* chuteLadder() */
+      printf(" landed an chute ... moving %d ...", instruction - 110);
     }
     else if (instruction > 110 && instruction <= 122) {   /* player found a ladder */
-      printf(" landed an ladder ... moving %d ...", instruction - 110);
       /* chuteLadder() */
+      printf(" landed an ladder ... moving %d ...", instruction - 110);
     }
   }
 
@@ -49,4 +49,9 @@ char *move(char *player, char *viewer, char *board, int player_id) {
 
   printf(" now at %ld\n", destination - board);
   return destination;
+}
+
+/* findHaven: determines the nearest haven to move to depending on if the player landed on a 'B' or an 'F' */
+char *findHaven(char *board, char *current, char instruction) {
+
 }
