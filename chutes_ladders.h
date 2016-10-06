@@ -15,5 +15,9 @@
 #include <time.h>     /* for seeding the random number generator */
 
 // Function Prototypes
+/* print the current board setup to the log file after each round of turns */
 void output(FILE *, char *, char *, char *);
+/* move the player pointers according to their roll and the value of the square they land on */
 char *move(char *, char *, char *, int);
+/* find the nearest haven when a player lands on a 'B' or an 'F' */
+char *findHaven(char *, char *, char);
