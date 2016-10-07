@@ -21,3 +21,5 @@ void output(FILE *, char *, char *, char *);
 char *move(char *, char *, char *, int);
 /* find the nearest haven when a player lands on a 'B' or an 'F' */
 char *findHaven(char *, char *, char);
+/* move the player forward or backward when landing on either a chute or ladder */
+char *chuteLadder(char *, char *, char);
