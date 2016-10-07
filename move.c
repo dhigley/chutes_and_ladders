@@ -33,7 +33,7 @@ char *move(char *player, char *viewer, char *board, int player_id) {
       destination = findHaven(board, destination, instruction);
     }
     else if (instruction >= 97 && instruction <= 122) { // check if tile is chute or ladder
-      /* destination = chuteLadder(board, destination, instruction); */
+      destination = chuteLadder(board, destination, instruction);
     }
   }
 
@@ -43,8 +43,21 @@ char *move(char *player, char *viewer, char *board, int player_id) {
 
 /* chuteLadder: moves a player forward or backward a set amount of tiles depending on the value of the tile they land on */
 char *chuteLadder(char *board, char *current_pointer, char instruction) {
-  char *updated_pointer;         // the adjusted dest based on the instruction
-  updated_pointer = current_pointer; // used the original dest as the starting point
+  int moves;                          // number of tiles to climb or slide
+  char *updated_pointer;              // the adjusted dest based on the instruction
+  updated_pointer = current_pointer;  // used the original dest as the starting point
+  moves = instruction - 110;
+
+  // print the correct message
+  if (instruction >= 97 && instruction < 110) {         // player found a chute
+    printf(" landed an chute ... moving %d ...", moves);
+  }
+  else if (instruction > 110 && instruction <= 122) {   // player found a ladder
+    printf(" landed an ladder ... moving %d ...", moves);
+  }
+
+  updated_pointer = current_pointer + moves;  // move the pointer
+  *current_pointer = '*';                     // set the chute/ladder to '*'
 
   return updated_pointer;
 }
@@ -56,9 +69,10 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
 
   // decode the instruction and iterate through the loop F/B to find the nearest 'H'
   if (instruction == 'F') {
+    printf(" moving forward to haven ...");
     // move the update pointer up to the next available haven
     for (updated_pointer = current_pointer; updated_pointer < board + 100 && *updated_pointer != 'H'; updated_pointer++) {
-      // put the updated pointer back to current if a forward 'H' cannot be found
+      // put the updated pointer back to current if a forward haven cannot be found
       if (updated_pointer == board + 99) {
         updated_pointer = current_pointer;
       }
@@ -67,9 +81,9 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
     if (*updated_pointer == 'H')
       *updated_pointer = '_';
 
-    printf(" moving forward to haven ...");
   }
   else if (instruction == 'B') {
+    printf(" moving backward to haven ...");
     // move the updated pointer back to the previous available haven
     for (updated_pointer = current_pointer; updated_pointer > board && *updated_pointer != 'H'; updated_pointer--) {
       // pointer move
@@ -77,8 +91,6 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
     // replace the current 'H' with a '_' so it cannot be reused
     if (*updated_pointer == 'H')
       *updated_pointer = '_';
-
-    printf(" moving backward to haven ...");
   }
 
   return updated_pointer;
