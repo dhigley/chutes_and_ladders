@@ -7,6 +7,9 @@
  * Programming Assignment 3
  * Due 10/19/2016
  *
+ * Output file that contains the function for writing the board setup to file at
+ * the end of each round of turns.
+ *
  */
 
 #include "chutes_ladders.h"

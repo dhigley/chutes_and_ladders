@@ -7,6 +7,8 @@
  * Programming Assignment 3
  * Due 10/19/2016
  *
+ * Header file for the Chutes and Ladders C program.
+ *
  */
 
 // Library Include Statements

@@ -7,6 +7,10 @@
  * Programming Assignment 3
  * Due 10/19/2016
  *
+ * Chutes and Ladders program file that contains the function for moving the
+ * pointers and the functions for handling the chutes, slides, 'F's, 'B's and
+ * havens as they are found.
+ *
  */
 #include "chutes_ladders.h"
 
@@ -30,9 +34,11 @@ char *move(char *player, char *viewer, char *board, int player_id) {
       printf(" collision! ... moving back one square ...");
     }
     else if (instruction == 'B' || instruction == 'F') { // check tile for 'F' or 'B'
+      /* printf("B or F fount"); */
       destination = findHaven(board, destination, instruction);
     }
     else if (instruction >= 97 && instruction <= 122) { // check if tile is chute or ladder
+      /* printf("chute or ladder found"); */
       destination = chuteLadder(board, destination, instruction);
     }
   }
