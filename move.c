@@ -79,7 +79,7 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
     // move the update pointer up to the next available haven
     for (updated_pointer = current_pointer; updated_pointer < board + 100 && *updated_pointer != 'H'; updated_pointer++) {
       // put the updated pointer back to current if a forward haven cannot be found
-      if (updated_pointer == board + 99) {
+      if (updated_pointer >= board + 100) {
         updated_pointer = current_pointer;
       }
     }
