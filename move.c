@@ -70,19 +70,22 @@ char *chuteLadder(char *board, char *current_pointer, char instruction) {
 
 /* findHaven: moves a player forward or backward to the nearest haven depending on if they landed on a 'F' or a 'B' */
 char *findHaven(char *board, char *current_pointer, char instruction) {
-  char *updated_pointer;         // the adjusted dest based on the instruction
-  updated_pointer = current_pointer; // used the original dest as the starting point
+  char *updated_pointer;  // the adjusted destination based on the instruction
 
   // decode the instruction and iterate through the loop F/B to find the nearest 'H'
   if (instruction == 'F') {
     printf(" moving forward to haven ...");
     // move the update pointer up to the next available haven
     for (updated_pointer = current_pointer; updated_pointer < board + 100 && *updated_pointer != 'H'; updated_pointer++) {
-      // put the updated pointer back to current if a forward haven cannot be found
-      if (updated_pointer >= board + 100) {
-        updated_pointer = current_pointer;
-      }
+      // pointer move
     }
+
+    // put the updated pointer back to current if a forward haven cannot be found
+    if (updated_pointer > board + 94) {
+      printf(" no forward havens available ...");
+      updated_pointer = current_pointer;
+    }
+
     // replace the current 'H' with a '_' so it cannot be reused
     if (*updated_pointer == 'H')
       *updated_pointer = '_';
@@ -94,6 +97,7 @@ char *findHaven(char *board, char *current_pointer, char instruction) {
     for (updated_pointer = current_pointer; updated_pointer > board && *updated_pointer != 'H'; updated_pointer--) {
       // pointer move
     }
+
     // replace the current 'H' with a '_' so it cannot be reused
     if (*updated_pointer == 'H')
       *updated_pointer = '_';
