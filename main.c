@@ -39,20 +39,17 @@ int main(void) {
   p2 = board;
 
   // advance players down the board with the move function until one reaches the end
-  while (p1 < board + 100 && p2 < board + 100) {
-  /* while (1) { */
-    // Player 1 moves
-    p1 = move(p1, p2, board, 1);
-    if (p1 >= board + 100) {
-      printf("You won the game\n");
-      break;
-    }
+  while (p1 < board + 100 && p2 < board + 100) {  // while neither player has won
+    // player 1 moves
+    p1 = move(p1, p2, board, 1);          // move player 1
+    if (p1 >= board + 100)                // if player 1 wins
+      printf("You won the game\n");       // let them know
 
-    // Player 2 moves
-    p2 = move(p2, p1, board, 2);
-    if (p2 >= board + 100) {
-      printf("I won the game\n");
-      break;
+    // player 2 moves
+    if (p1 < board + 100) {               // if player 1 has not won the game
+      p2 = move(p2, p1, board, 2);        // move player 2
+      if (p2 >= board + 100)              // if player 2 wins
+        printf("I won the game\n");       // let them know
     }
 
     // write move results to the log file
