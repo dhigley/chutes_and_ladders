@@ -34,13 +34,16 @@ char *move(char *player, char *viewer, char *board, int player_id) {
       printf(" collision! ... moving back one square ...");
     }
     else if (instruction == 'B' || instruction == 'F') { // check tile for 'F' or 'B'
-      /* printf("B or F fount"); */
       destination = findHaven(board, destination, instruction);
     }
     else if (instruction >= 97 && instruction <= 122) { // check if tile is chute or ladder
-      /* printf("chute or ladder found"); */
       destination = chuteLadder(board, destination, instruction);
     }
+  }
+
+  if (destination == viewer && destination > board) {    // check for player collision after move
+    destination -= 1;
+    printf(" collision! ... moving back one square ...");
   }
 
   printf(" now at %ld\n", destination - board);
